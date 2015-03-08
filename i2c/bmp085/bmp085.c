@@ -30,7 +30,7 @@ uint8_t oss;
 // 0 - Ultra low power        -> 4.5ms
 // 1 - Standard               -> 7.5ms
 // 2 - High Resolution        -> 13.5ms
-// 3 - Ultra High Resolition  -> 25.5ms
+// 3 - Ultra High Resolution  -> 25.5ms
 
 // Pressão no nivel do mar (em Pa)
 const uint32_t p0 = 101325;

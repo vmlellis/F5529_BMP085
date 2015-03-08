@@ -41,10 +41,17 @@ volatile uint8_t sleeping = 0;
 uint16_t SMILLIS_INC = 0;
 uint16_t SFRACT_INC = 0;
 
+// Informa se deve ser realizado a leitura dos sensores
+volatile uint8_t readSensors = 0;
+
 // Parametros do magnometro
-volatile uint8_t readMag = 0;	// Informa se deve ser realizado a leitura do magnometro
 uint8_t magEnabled = 0;			// Informa que o magnometro estah habilitado
 int mx = 0, my = 0, mz = 0;		// Dados do magnometro
+
+// Parametros do barometro
+uint8_t barEnabled = 0;
+long temp = 0, pressure = 0;
+float altitude = 0.0;
 
 /*
  * main.c
@@ -63,15 +70,25 @@ int main(void) {
 
     while (1) {
 
-    	/*uint8_t enable = bmp085_detect();
-    	if (enable) {
-    		uart_printf("BMP085 Habilitado\r\n");
-    	}
-    	else {
-    		uart_printf("BMP085 Desabilitado\r\n");
-    	}*/
+    	uint8_t enable = bmp085_detect();
+		if (enable) {
+			if (barEnabled == 0) {
+				bmp085_config(BMP085_OSS);
+				barEnabled = 1;
+			}
+			bmp085_read(&temp, &pressure);
+			altitude = bmp085_readAltitude(pressure);
+			uart_printf("BMP085 Habilitado\r\n");
+			uart_printf("temp = %i (*0.1 graus); pressao = %i Pa\r\n", temp, pressure);
+			uart_printf("altitude = %f m\r\n", altitude);
+		}
+		else {
+			uart_printf("BMP085 Desabilitado\r\n");
+			if (magEnabled)
+				magEnabled = 0;
+		}
 
-    	delay(1000);
+    	delay(500);
 
     	counter++;
 

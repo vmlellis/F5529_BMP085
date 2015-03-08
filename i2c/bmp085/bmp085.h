@@ -35,5 +35,6 @@
 void bmp085_config(uint8_t);		// Calibração do BMP085
 uint8_t bmp085_detect(void); 		// Verificar a presença do BMP085
 void bmp085_read(long*, long*);		// Calcula a temperatura e a pressão
+float bmp085_readAltitude(long);	// Calcula a altitude
 
 #endif /* I2C_BMP085_BMP085_H_ */
