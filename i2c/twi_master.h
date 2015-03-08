@@ -30,6 +30,7 @@ uint8_t twi_master_readFrom(uint8_t, uint8_t*, uint8_t, uint8_t);
 uint8_t twi_master_writeTo(uint8_t, uint8_t*, uint8_t, uint8_t);
 void twi_master_writeRegister(uint8_t, uint8_t, uint8_t*, uint8_t);
 uint8_t twi_master_readRegister(uint8_t, uint8_t, uint8_t*, uint8_t);
+uint16_t twi_master_read16(uint8_t, uint8_t);
 
 #endif
 

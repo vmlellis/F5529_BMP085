@@ -7,7 +7,7 @@
 
 #include "setup.h"
 #include "uart/uart_tx.h"
-//#include "i2c/bmp085/bmp085.h"
+#include "i2c/bmp085/bmp085.h"
 #include "i2c/twi_master.h"
 
 volatile int counter = 0;
