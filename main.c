@@ -50,8 +50,8 @@ int mx = 0, my = 0, mz = 0;		// Dados do magnometro
 
 // Parametros do barometro
 uint8_t barEnabled = 0;
-long temp = 0, pressure = 0;
-float altitude = 0.0;
+long temp10 = 0, pressure = 0;
+float temp = 0.0, altitude = 0.0;
 
 /*
  * main.c
@@ -67,26 +67,35 @@ int main(void) {
     setupUart();
     setupI2C();
 
+    barEnabled = 0;
+
 
     while (1) {
 
     	uint8_t enable = bmp085_detect();
 		if (enable) {
+			uart_printf("BMP085 Habilitado\r\n");
 			if (barEnabled == 0) {
+				uart_printf("Calibrando...\r\n");
 				bmp085_config(BMP085_OSS);
 				barEnabled = 1;
 			}
-			bmp085_read(&temp, &pressure);
+			bmp085_read(&temp10, &pressure);
+			temp = temp10/10.0;
 			altitude = bmp085_readAltitude(pressure);
-			uart_printf("BMP085 Habilitado\r\n");
-			uart_printf("temp = %i (*0.1 graus); pressao = %i Pa\r\n", temp, pressure);
-			uart_printf("altitude = %f m\r\n", altitude);
+
+			uart_printf("temp = %.1f C; pressao = %l Pa\r\n", temp, pressure);
+			uart_printf("altitude = %.2f m\r\n", altitude);
+
+
 		}
 		else {
 			uart_printf("BMP085 Desabilitado\r\n");
-			if (magEnabled)
-				magEnabled = 0;
+			if (barEnabled)
+				barEnabled = 0;
 		}
+
+
 
     	delay(500);
 

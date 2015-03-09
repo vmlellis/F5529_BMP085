@@ -24,9 +24,6 @@
 #define BMP085_LSB_REG	            0xF7 // Registrador LSB
 #define BMP085_CONV_REG_XLSB        0xF8 // Registrador XLSB
 
-// Bosch BMP085 chip ID
-#define BMP085_CHIP_ID   			0x55
-
 // Registradores não definidos no datasheet, mas achados em exemplos
 #define BMP085_REG_ID    0xD0  // chip ID register
 #define BMP085_REG_VER   0xD1  // chip version register

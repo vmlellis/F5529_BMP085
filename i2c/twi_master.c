@@ -261,7 +261,7 @@ uint16_t twi_master_read16(uint8_t devAddr, uint8_t regAddr) {
 	twi_master_readRegister(devAddr, regAddr, &buffer, sizeof(buffer));
 	msb = buffer[0];
 	lsb = buffer[1];
-	return (uint16_t) msb<<8 | lsb;
+	return ((uint16_t) msb)<<8 | lsb;
 }
 
 

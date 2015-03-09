@@ -19,7 +19,7 @@
 #define BAUD_RATE 9600	  // Baud Rate do UART: 9600
 #define I2C_FREQ 400000L  // Frequencia do I2C: 400 kHz
 
-#define BMP085_OSS 2	// High resolution (Delay de ~ 14ms na leitura)
+#define BMP085_OSS 3	// Ultra High Resolution (Delay de ~ 26ms na leitura)
 
 /*
  * Definições para controle do clock

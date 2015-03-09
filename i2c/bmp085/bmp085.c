@@ -12,7 +12,8 @@
 extern void delay(uint32_t milliseconds);
 
 // Variaveis para calibracao
-uint16_t ac1, ac2, ac3, ac4, ac5, ac6, b1, b2, mb, mc, md;
+int ac1, ac2, ac3, b1, b2, mb, mc, md;
+unsigned int ac4, ac5, ac6;
 
 // Variavel compartilhada
 long b5;
@@ -36,10 +37,13 @@ uint8_t oss;
 const uint32_t p0 = 101325;
 
 uint8_t bmp085_detect(void) {
-	uint8_t bmp085_RxBuffer[3] = {0, 0, 0};
-	twi_master_readRegister(BMP085_ADDR, BMP085_REG_ID, bmp085_RxBuffer, sizeof(bmp085_RxBuffer));
+	//uint8_t bmp085_RxBuffer[3] = {0, 0, 0};
+	uint8_t data = 0;
+	//twi_master_readRegister(BMP085_ADDR, BMP085_REG_ID, bmp085_RxBuffer, sizeof(bmp085_RxBuffer));
+	twi_master_readRegister(BMP085_ADDR, BMP085_REG_ID, &data, sizeof(data));
 
-	return (bmp085_RxBuffer[0] == BMP085_CHIP_ID);
+	//return (bmp085_RxBuffer[0] == 0x55 && bmp085_RxBuffer[1] == 0x02 && bmp085_RxBuffer[2] == 0x06);
+	return (data == 0x55);
 }
 
 void bmp085_config(uint8_t oss_value) {
@@ -87,7 +91,7 @@ void bmp085_up(void) {
 }
 
 /*
- * Ler temperatura real (por 0.1ºC)
+ * Ler temperatura real (por 0.1 C)
  */
 void bmp085_t(long* temp) {
 	long x1, x2;
@@ -146,6 +150,6 @@ void bmp085_read(long* temp, long* pressure) {
  * Ler a altitude com a pressão lida do BMP085
  */
 float bmp085_readAltitude(long pressure) {
-	return (float)44330 * (1 - powf(((float) pressure/p0), 0.190295));
+	return (float)44330 * (1.0 - powf(((float) pressure/p0), 0.190295));
 }
 
