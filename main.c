@@ -44,11 +44,11 @@ uint16_t SFRACT_INC = 0;
 // Informa se deve ser realizado a leitura dos sensores
 volatile uint8_t readSensors = 0;
 
-// Parametros do magnometro
+// Parametros do magnometro (HMC5884L)
 uint8_t magEnabled = 0;			// Informa que o magnometro estah habilitado
 int mx = 0, my = 0, mz = 0;		// Dados do magnometro
 
-// Parametros do barometro
+// Parametros do barometro (bmp085)
 uint8_t barEnabled = 0;
 long temp10 = 0, pressure = 0;
 float temp = 0.0, altitude = 0.0;
